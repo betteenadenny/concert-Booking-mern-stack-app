@@ -1,0 +1,109 @@
+/* basic page spacing */
+.page-title {
+    margin: 20px 0;
+    font-size: 1.6rem;
+    color: #222;
+}
+
+/* table basics */
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: inherit;
+    min-width: 600px; /* ensures horizontal scroll on tiny screens, overridden by mobile layout later */
+}
+
+.users-table thead th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    letter-spacing: 0.2px;
+    /* background: linear-gradient(90deg, #eb1f77, #eb5f54); */
+    color: #eb1f77;
+    border: none;
+}
+
+.users-table tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #eef2f6;
+    font-size: 0.95rem;
+    color: #222;
+}
+
+/* zebra rows */
+.users-table tbody tr:nth-child(even) {
+    background: #fbfdff;
+}
+
+/* hover highlight */
+.users-table tbody tr:hover {
+    background: #f0f7ff;
+    transform: translateY(-1px);
+}
+
+/* small secondary label style for data-label usage on mobile stacked cards */
+.users-table tbody td[data-label]::before {
+    content: attr(data-label) ": ";
+    font-weight: 600;
+    display: none; /* visible in mobile mode via media query */
+}
+
+.delete-btn {
+    background-color: #e63946;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.delete-btn:hover {
+    background-color: #c1121f;
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+.delete-btn:active {
+    transform: scale(0.97);
+}
+
+/* responsive: stack rows into cards on small screens */
+@media (max-width: 700px) {
+    .users-table {
+        min-width: 0;
+        display: block;
+    }
+
+    .users-table thead {
+        display: none;
+    }
+
+    .users-table tbody, .users-table tr, .users-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .users-table tbody tr {
+        margin-bottom: 12px;
+        border-radius: 8px;
+        padding: 12px;
+        box-shadow: 0 4px 10px rgba(15, 30, 80, 0.04);
+        background: #fff;
+    }
+
+    .users-table tbody td {
+        padding: 8px 12px;
+        border: none;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .users-table tbody td[data-label]::before {
+        display: inline-block;
+        color: #6b7280;
+        margin-right: 6px;
+        font-weight: 600;
+    }
+}

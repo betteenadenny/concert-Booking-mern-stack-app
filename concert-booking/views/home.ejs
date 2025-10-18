@@ -1,0 +1,37 @@
+
+<h1>Concert List</h1>
+
+<div class="row">
+    <% if(data.length > 0) { %>
+        <% data.forEach(concert => { %>
+            <div class="col-md-3">
+                <div class="card mt-2" >
+                    <img src="data:image/png;base64,<%= concert.image %>" class="card-img-top" alt="<%= concert.name %>" width="400" height="200"/>    
+                </div>
+                <div class="card-body  p-3">
+                    <h5 class="card-title"><%= concert.name %></h5>
+                    <p class="card-text">
+                        <strong>Details:</strong> 
+  <%= concert.formattedDate %> at <%= concert.time %>, <%= concert.venue %></p>
+                    <p class="card-text">Price: ₹<%= concert.price %> </p>
+                    <p class="card-text">
+                        Total Tickets: <%= concert.total %> <br/>
+                        Available Tickets: <%= concert.available %></p>
+                     <a href="/update-concert/<%= concert._id %>" class="btn btn-warning">Update</a>
+                     <a href="/delete-concert/<%= concert._id %>" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        <% }); %>
+    <% } else { %>
+    <p>No Concerts found.</p>
+<% } %>
+    
+</div>
+  
+    
+        
+        
+            
+            
+           
+

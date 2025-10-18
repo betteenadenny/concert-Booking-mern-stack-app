@@ -1,0 +1,64 @@
+<h1 class="text-primary">Create a new concert</h1>
+
+<form action="/create-concert" method="post" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label for="name" class="form-label">Concert name</label>
+    <input type="text" class="form-control" id="name" name="name" required>
+    <div  class="form-text">Concert name must be unique</div>
+    <% if (error && error.name) { %>
+      <p class="text-danger"><%= error.name.message %></p>
+    <% } %>    
+  </div>
+
+  <div class="mb-3">
+    <label for="image" class="form-label">Upload Image</label>
+    <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+    <div  class="form-text">Concert name must be unique</div>
+    <% if (error && error.image) { %>
+      <p class="text-danger"><%= error.image.message %></p>
+    <% } %>
+  </div>
+
+  <div class="mb-3">
+    <label for="date" class="form-label">Date</label>
+    <input type="date" class="form-control" id="date" name="date" required>
+    <% if (error && error.date) { %>
+      <p class="text-danger"><%= error.date.message %></p>
+    <% } %>
+  </div>
+
+  <div class="mb-3">
+    <label for="time" class="form-label">Time</label>
+    <input type="time" class="form-control" id="date" name="time" required>
+    <% if (error && error.time) { %>
+      <p class="text-danger"><%= error.time.message %></p>
+    <% } %>
+  </div>
+
+  <div class="mb-3">
+    <label for="venue" class="form-label">Venue</label>
+    <input type="text" class="form-control" id="venue" name="venue" required>
+    <% if (error && error.venue) { %>
+      <p class="text-danger"><%= error.venue.message %></p>
+    <% } %>  
+  </div>
+
+  <div class="mb-3">
+    <label for="price" class="form-label">Ticket price</label>
+    <input type="number" class="form-control" id="price" name="price" required>
+    <% if (error && error.price) { %>
+        <p class="text-danger"><%= error.price.message %></p>
+        <% } %>
+  </div>
+
+  <div class="mb-3">
+    <label for="available-ticket" class="form-label">Total number of Tickets</label>
+    <input type="number" class="form-control" id="available-ticket" name="available" required>
+    <% if (error && error.available) { %>
+      <p class="text-danger"><%= error.available.message %></p>
+    <% } %>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Create</button>
+</form>
+

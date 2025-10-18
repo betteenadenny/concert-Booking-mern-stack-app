@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Confirmation</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .header {
+      background-color: #3f51b5;
+      color: #ffffff;
+      padding: 20px;
+      text-align: center;
+    }
+    .content {
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .content h2 {
+      color: #3f51b5;
+      margin-bottom: 10px;
+    }
+    .details {
+      margin: 20px 0;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .details td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #f0f0f0;
+      color: #555;
+      font-size: 14px;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #3f51b5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎟 Booking Confirmation</h1>
+    </div>
+    <div class="content">
+      <p>Hi <strong><%= bookingData.user.name %></strong>,</p>
+      <p>
+        Thank you for booking your concert ticket with us!
+        Your reservation has been confirmed. Below are your booking details:
+      </p>
+
+      <h2><%= bookingData.concert.name %></h2>
+      <table class="details">
+        <tr>
+          <td><strong>Venue:</strong></td>
+          <td><%= bookingData.concert.venue %></td>
+        </tr>
+        <tr>
+          <td><strong>Date:</strong></td>
+          <td><%= new Date(bookingData.concert.date).toLocaleDateString() %></td>
+        </tr>
+        <tr>
+          <td><strong>Tickets:</strong></td>
+          <td><%= bookingData.tickets %></td>
+        </tr>
+        <tr>
+          <td><strong>Booking ID:</strong></td>
+          <td><%= bookingData._id %></td>
+        </tr>
+      </table>
+
+      <p>
+        Please bring this confirmation email or show the QR code at the venue entrance for smooth entry.
+      </p>
+
+      <p class="highlight">
+        Enjoy the show! 🎶
+      </p>
+    </div>
+    <div class="footer">
+      <p>© 2025 Concert Booking App. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<h1 class="text-center my-4"><%= title %></h1>
+
+<div class="container text-end mb-4">
+  <form method="get" action="/booking-details">
+    <select name="view" class="form-select w-auto d-inline-block" onchange="this.form.submit()">
+      <option value="user" <%= view === 'user' ? 'selected' : '' %>>View by Users</option>
+      <option value="concert" <%= view === 'concert' ? 'selected' : '' %>>View by Concerts</option>
+    </select>
+  </form>
+</div>
+
+<div class="container">
+  <% Object.values(groupedData).forEach((group, idx) => { %>
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <% if(view === 'user') { %>
+          <strong><%= group.user.name %></strong> (<%= group.user.email %>)
+        <% } else { %>
+          <strong><%= group.concert.name %></strong> - <%= group.concert.venue %> (<%= group.concert.date %>)
+        <% } %>
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-bordered mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <% if(view === 'user') { %>
+                <th>Concert</th>
+                <th>Venue</th>
+                <th>Date</th>
+              <% } else { %>
+                <th>User Name</th>
+                <th>Email</th>
+              <% } %>
+              <th>Tickets</th>
+              <th>Total Price</th>
+              <th>Booking Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% group.bookings.forEach((b, i) => { %>
+              <tr>
+                <td><%= i + 1 %></td>
+                <% if(view === 'user') { %>
+                  <td><%= b.concert.name %></td>
+                  <td><%= b.concert.venue %></td>
+                  <td><%= b.concert.date %></td>
+                <% } else { %>
+                  <td><%= b.user.name %></td>
+                  <td><%= b.user.email %></td>
+                <% } %>
+                <td><%= b.tickets %></td>
+                <td>₹<%= b.totalPrice %></td>
+                <td><%= new Date(b.bookingDate).toLocaleDateString() %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% }) %>
+</div>

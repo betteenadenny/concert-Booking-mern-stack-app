@@ -1,0 +1,70 @@
+<h1 class="text-primary">Update Concert</h1>
+
+<form action="/update-concert/<%= concert._id %>" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="name" class="form-label">Concert name</label>
+        <input type="text" class="form-control" id="name" name="name" value="<%= concert.name %>" required>
+        <div  class="form-text">Concert name must be unique</div>
+        <% if (error && error.name) { %>
+        <p class="text-danger"><%= error.name.message %></p>
+        <% } %>
+    </div>
+
+    <% if (concert.image) { %>
+    <div class="mb-3">
+      <label class="form-label">Current Image</label><br>
+      <img src="data:image/png;base64,<%= concert.image %>" alt="<%= concert.name %>" width="200">
+    </div>
+    <% } %>
+
+    <div class="mb-3">
+        <label for="image" class="form-label">Upload New Image</label>
+        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+        <% if (error && error.image) { %>
+        <p class="text-danger"><%= error.image.message %></p>
+        <% } %>
+    </div>
+
+    <div class="mb-3">
+        <label for="date" class="form-label">Date</label>
+        <input type="date" class="form-control" id="date" name="date" value="<%= concert.date %>" required>
+        <% if (error && error.date) { %>
+        <p class="text-danger"><%= error.date.message %></p>
+        <% } %>
+    </div>
+
+    <div class="mb-3">
+        <label for="time" class="form-label">Time</label>
+        <input type="time" class="form-control" id="time" name="time" value="<%= concert.time %>" required>
+        <% if (error && error.time) { %>
+        <p class="text-danger"><%= error.time.message %></p>
+        <% } %>
+    </div>
+
+        <div class="mb-3">
+        <label for="venue" class="form-label">Venue</label>
+        <input type="text" class="form-control" id="venue" name="venue" value="<%= concert.venue %>" required>
+        <% if (error && error.venue) { %>
+        <p class="text-danger"><%= error.venue.message %></p>
+        <% } %>
+    </div>
+
+    <div class="mb-3">
+        <label for="price" class="form-label">Ticket Price</label>
+        <input type="number" class="form-control" id="price" name="price" value="<%= concert.price %>" required>
+        <% if (error && error.price) { %>
+        <p class="text-danger"><%= error.price.message %></p>
+        <% } %>
+    </div>
+
+    <div class="mb-3">
+        <label for="available" class="form-label">Total Tickets</label>
+        <input type="number" class="form-control" id="total" name="total" value="<%= concert.total %>" required>
+        <% if (error && error.available) { %>
+        <p class="text-danger"><%= error.total.message %></p>
+        <% } %>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Concert</button>
+
+</form>

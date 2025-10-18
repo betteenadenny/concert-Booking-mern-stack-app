@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="/stylesheets/users.css">
+
+<h1 class="page-title"><%= title  %></h1>
+
+<div class="users-table-wrapper">
+  <table class="users-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach((user, idx) => { %>
+        <tr>
+          <td data-label="#"> <%= idx + 1 %> </td>
+          <td data-label="Name"> <%= user.name %> </td>
+          <td data-label="Email"> <%= user.email %> </td>
+          <td data-label="Role"> <%= user.role  %> </td>
+          <td>
+            <form action="/delete-user/<%= user._id %>" method="POST" style="display:inline;">
+                <button type="submit" class="delete-btn"
+                 onclick="return confirm('Are you sure you want to delete <%= user.name %> ?')">
+                    Delete
+                </button>
+</form>
+
+        </td>
+          
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
