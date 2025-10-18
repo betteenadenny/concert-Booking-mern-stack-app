@@ -4,14 +4,14 @@ const multer = require('multer');
 const User = require('../models/userModels');
 const Concert = require('../models/concertModels');
 const Booking = require('../models/bookingModel');
-const authenticate = require('../middlewares/authenticate');
-const {authorize} = require('../middlewares/authorize');
+// const authenticate = require('../middlewares/authenticate');
+// const authorize = require('../middlewares/authorize');
 const { checkDuplicateConcertName } = require('../middlewares/customValidators');
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-router.get('/',authorize,async (req,res) => {
+router.get('/',async (req,res) => {
   try {
     const concerts = await Concert.find();
     const data = concerts.map(concert => ({

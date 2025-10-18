@@ -12,54 +12,52 @@ const ejs = require('ejs');
 const authenticate = require('../middlewares/authenticate');
 // const authorize = require('../middlewares/authorize');
 
-router.post('/register', (req, res) => {
-    const { name,email, password, password_confirmation } = req.body;
- 
+router.post('/register', async (req, res) => {
+  try {
+    const { name, email, password, password_confirmation } = req.body;
+
+    if (!name || !email || !password || !password_confirmation) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
     if (password !== password_confirmation) {
       return res.status(400).json({ message: 'Password and Confirm Password do not match' });
     }
- 
-    const user = new User({ name,email, password });
-    const validationError = user.validateSync();
- 
+    
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already taken' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ name, email, password: hashedPassword });
+    const validationError = newUser.validateSync();
     if (validationError) {
       return res.status(400).json({ error: validationError.errors });
     }
- 
-    User.findOne({ email })
-      .then(existingUser => {
-        if (existingUser) {
-           res.status(400).json({ message: 'Email already taken' });
-           return
-        }
-        return bcrypt.hash(password, 10);
-      })
-      .then(hashedPassword => {
-        if (!hashedPassword) return;
-        const newUser = new User({ name,email, password: hashedPassword });
-        return newUser.save();
-      })
-      .then(savedUser  => {
-        if (!savedUser) return; 
-        res.status(201).json({ message: 'Account created successfully' });
-      })
-      .catch(error => {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
-      });
-  });
+
+    await newUser.save();
+    res.status(201).json({ message: 'Account created successfully' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
 
 router.post('/login', async (req, res) => {
   try {
     const {email,password} = req.body;
-    const user = await User.findOne({ email});
+    if(!email || !password){
+      return res.status(400).json({ message: 'All fields are required' });
+    }
 
+    const user = await User.findOne({ email});
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
-
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
